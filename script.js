@@ -1,5 +1,6 @@
 let inputTarefa = document.querySelector("#inputTarefa");
 let btnAdicionar = document.querySelector("#btnAdicionar");
+let btnRemover = document.querySelector("#btnRemover")
 let lista = document.querySelector("#listaTarefas");
 let mensagem = document.querySelector("#mensagem");
 
@@ -31,4 +32,20 @@ btnAdicionar.addEventListener("click", () => {
     inputLista.value = ""; // Limpa o campo input após adicionar o item
 
 });
+
+btnRemover.addEventListener("click", ()=>{
+    
+    // Verifica se existe algum item na lista
+    if (lista.lastElementChild) {
+
+        // Remove o último item da lista (<li>)
+        lista.removeChild(lista.lastElementChild);
+
+        mensagem.innerText = `Item excluido com sucesso!`
+        mensagem.className = `text-warning fw-bold`
+
+    }
+
+});
+
 
