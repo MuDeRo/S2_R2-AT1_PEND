@@ -1,8 +1,7 @@
-let nome = document.querySelector("#nome");
-let btnMensage = document.querySelector("#btnMensage");
-let mensage = document.querySelector("#mensagem")
+let mensage = document.querySelector("#mensageInicial");
+let btnAlterar = document.querySelector("#btnAlterar");
 
-btnMensage.addEventListener("click", ()=>{
-    mensage.innerText = `Jesus ama o(a) ${nome.value}`
-});
-  
+
+btnAlterar.addEventListener("click", ()=>{
+    mensage.innerText = `Seja bem vindo ao JavaScript`;
+})
