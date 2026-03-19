@@ -1,51 +1,68 @@
-let inputTarefa = document.querySelector("#inputTarefa");
+let inputLista = document.querySelector("#inputLista");
 let btnAdicionar = document.querySelector("#btnAdicionar");
-let btnRemover = document.querySelector("#btnRemover")
-let lista = document.querySelector("#listaTarefas");
-let mensagem = document.querySelector("#mensagem");
+let btnRemover = document.querySelector("#btnRemover");
+let lista = document.querySelector("#listaTarefa");
+let message = document.querySelector("#message");
 
 btnAdicionar.addEventListener("click", () => {
+    let itemTexto = inputLista.value;
 
-    let itemTexto = inputTarefa.value; // Pega o texto digitado no campo input
-
-    let novoItem = document.createElement("li"); // Cria um novo elemento <li> para a lista
-
-    novoItem.innerText = itemTexto; // Coloca o texto digitado dentro do novo item da lista
-
-    
     if (itemTexto === "") {
-        
-        
-        mensagem.innerText = `Campo vazio! Preencha corretamente`;
-        mensagem.className = `text-danger fw-bold`;
-    } else {
-        
-        let mensageFeedback = document.querySelector("#mensagem");
-        
-        mensageFeedback.innerText = `Item adicionado com sucesso!`
-        mensagem.className = `text-success fw-bold`;
-        lista.appendChild(novoItem); // Adiciona o novo <li> dentro da <ul>
+        message.innerText = "Campo vazio, preencha corretamente";
+        message.className = "text-danger fw-bold";
+        return;
     }
 
+    let novoItem = document.createElement("li");
+    novoItem.className = "list-group-item d-flex justify-content-between";
 
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "form-check-input";
 
-    inputLista.value = ""; // Limpa o campo input após adicionar o item
+    let texto = document.createElement("span");
+    texto.innerText = itemTexto;
 
+    let btnExcluir = document.createElement("button");
+    btnExcluir.innerText = "Remover";
+    btnExcluir.className = "btn btn-sm btn-danger";
+
+    checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+            texto.classList.add("text-decoration-line-through", "text-muted");
+        } else {
+            texto.classList.remove("text-decoration-line-through", "text-muted");
+        }
+    });
+
+    btnExcluir.addEventListener("click", () => {
+        if (lista.contains(novoItem)) {
+            lista.removeChild(novoItem);
+            message.innerText = "Texto excluído com sucesso!";
+            message.className = "text-warning fw-bold";
+        }
+    });
+
+    novoItem.appendChild(checkbox);
+    novoItem.appendChild(texto);
+    novoItem.appendChild(btnExcluir);
+
+    lista.appendChild(novoItem);
+
+    message.innerText = "Objetivo registrado!";
+    message.className = "text-success fw-bold";
+
+    inputLT.value = "";
 });
 
-btnRemover.addEventListener("click", ()=>{
-    
-    // Verifica se existe algum item na lista
+btnRemover.addEventListener("click", () => {
     if (lista.lastElementChild) {
-
-        // Remove o último item da lista (<li>)
         lista.removeChild(lista.lastElementChild);
-
-        mensagem.innerText = `Item excluido com sucesso!`
-        mensagem.className = `text-warning fw-bold`
-
+        message.innerText = "Último item removido! ";
+        message.className = "text-warning fw-bold";
+    } else {
+        message.innerText = "Nada para remover";
+        message.className = "text-danger fw-bold";
     }
-
 });
-
 
